@@ -1,9 +1,10 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class schoolsearch {
     public static void main(String[] argv) {
@@ -121,6 +122,7 @@ public class schoolsearch {
         System.out.println("\tA[verage]: <number>");
         System.out.println("\tB[us]: <number>");
         System.out.println("\tC[lassroom]: <number>");
+        System.out.println("\tE[nrollment]");
         System.out.println("\tG[rade]: <number> [[H]|[L]]");
         System.out.println("\tI[nfo]");
         System.out.println("\tS[tudent]: <lastname>");
@@ -194,8 +196,17 @@ public class schoolsearch {
                     } else {
                         System.out.println("Students:");
                         classStudents(students, targetClassroom);
-                        System.out.println("Teachers:");
+                        System.out.println("\nTeachers:");
                         classTeachers(teachers, targetClassroom);
+                    }
+                    break;
+                case "Enrollment":
+                case "E":
+                    if (line.hasNext()) {
+                        System.out.println("Incorrect command");
+                        System.out.println("Usage: E[nrollment]");
+                    } else {
+                        enrollment(students);
                     }
                     break;
                 case "Grade:":
@@ -221,7 +232,7 @@ public class schoolsearch {
                     } else {
                         System.out.println("Students:");
                         gradeStudents(students, targetGrade, extreme);
-                        System.out.println("Teachers:");
+                        System.out.println("\nTeachers:");
                         gradeTeachers(students, teachers, targetGrade);
                         
                     }
@@ -359,6 +370,31 @@ public class schoolsearch {
                System.out.println(t.getFirstName());
             }
          }
+    }
+    
+     private static void enrollment(HashSet<Student> students) {
+        ArrayList<Integer> classrooms = new ArrayList<Integer>();
+        Iterator<Student> iter = students.iterator();
+
+        while (iter.hasNext()) {
+            Student s = iter.next();
+            if(!classrooms.contains(s.getClassroom()))
+               classrooms.add(s.getClassroom());
+         }
+        Collections.sort(classrooms);
+        ArrayList<Integer> numStudents = new ArrayList<Integer>();
+        for(int k = 0; k < classrooms.size(); k++)
+           numStudents.add(0);
+        iter = students.iterator();
+        while(iter.hasNext()){
+           Student s = iter.next();
+           int c = s.getClassroom();
+           int i = classrooms.indexOf(c);
+           int count = numStudents.get(i)+1;
+           numStudents.set(i,count);
+        }
+        for(int j = 0; j < classrooms.size(); j++)
+           System.out.println(classrooms.get(j) + ": " + numStudents.get(j));
     }
     
     private static void gradeStudents(HashSet<Student> students, int grade, String extreme) {
