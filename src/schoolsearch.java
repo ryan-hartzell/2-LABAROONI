@@ -228,7 +228,7 @@ public class schoolsearch {
                     }
                     else {
                         System.out.println("Incorrect command");
-                        System.out.println("Usage: G[rage]: <number> [[H[igh]]|[L[ow]]]");
+                        System.out.println("Usage: G[rade]: <number> [[H[igh]]|[L[ow]]]");
                         break;
                     }
 
@@ -305,7 +305,7 @@ public class schoolsearch {
                 default:
                     System.out.println("Unrecognized command");
                     System.out.println("Usage:");
-                    System.out.println("\tA[verage]: <number>");
+                    System.out.println("\tA[verage]: <number> | B[us] | G[rade] | T[eacher]");
                     System.out.println("\tB[us]: <number>");
                     System.out.println("\tC[lassroom]: <number>");
                     System.out.println("\tE[nrollment]");
