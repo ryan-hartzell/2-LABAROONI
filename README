@@ -1,0 +1,11 @@
+To compile:
+    javac *.java
+
+To run:
+    java schoolsearch
+
+New commands:
+    E[nrollment] - outputs number of students by classroom
+    A[verage]: <number> | B[us] | G[rade] | T[eacher} - for text options (B, G, T), outputs
+        average GPA for all students in each instance of that category.
+        i.e. A: B outputs average GPA for students in each bus route.

@@ -1,0 +1,266 @@
+//CSC 365. Fall 2017
+//Anthony Delgado, Ryan Hartzell
+//Lab 1-1 test suite
+//
+//TC-1
+//Tests Requirements R3, R4
+//short form command name, existing student
+//expected output: WOOLERY,NOLAN,2,104,STEIB,GALE
+
+S: WOOLERY
+//
+
+//TC-2
+//Tests Requirements R3, R4
+//short form command name, non-existing student
+//expected output: <empty line>
+
+S: NOTAREALNAME
+//
+
+//TC-3
+//Tests Requirements R3, R5
+//lastname bus command, existing student
+//expected output: WOOLERY,NOLAN,51
+
+S: WOOLERY B
+//
+
+//TC-4
+//Tests Requirements R3, R5
+//short form command name, non-existing student
+//expected output: <empty line>
+
+S: NOTAREALNAME B
+//
+
+//TC-5
+//Tests Requirements R3, R6
+//teacher lastname command, existing teacher
+//expected output:GARTH,JOHN\nSAELEE,DANILO
+
+T: FALKER
+//
+
+//TC-6
+//Tests Requirements R3, R6
+//teacher lastname command, non-existing teacher
+//expected output: <empty line>
+
+T: THISISFAKE
+//
+
+//TC-7
+//Tests Requirements R3, R7
+//grade and number command, existing grade with students
+//expected output:GARTH,JOHN\nSAELEE,DANILO
+
+G: 1
+//
+
+//TC-8
+//Tests Requirements R3, R7
+//grade and number command, existing grade without students
+//expected output: <empty line>
+
+G: 5
+//
+
+//TC-9
+//Tests Requirements R3, R7
+//grade and number command, non-existing grade
+//expected output: <empty line>
+
+G: 57
+//
+
+//TC-10
+//Tests Requirements R3, R8
+//bus and number command, existing bus
+//expected output:
+//COVINGTON,TOMAS,3,107
+//DURAND,CARLEE,4,101
+//STERBACK,PETER,6,111
+//LIBRANDI,TODD,2,108
+//WOOLERY,NOLAN,2,104
+//MULLINGS,LEIGHANN,2,108
+//FRIEDSTROM,REED,6,106
+//RAPOSE,ALONZO,4,105
+
+
+B: 51
+//
+
+//TC-11
+//Tests Requirements R3, R8
+//bus and number command, non-existing bus
+//expected output: No results found
+
+B: 12
+//
+
+//TC-12
+//Tests Requirements R3, R9
+//grade number high command, existing grade
+//expected output: SWEDLUND,SHARRI,55,3.24,FAFARD,ROCIO
+
+G: 3 H
+//
+
+//TC-13
+//Tests Requirements R3, R9
+//grade number high command, non-existing
+//expected output: <empty line>
+
+G: 22 H
+//
+
+//TC-14
+//Tests Requirements R3, R9
+//grade number low command, existing grade
+//expected output: GARTH,JOHN,0,3.14,FALKER,ADOLPH
+
+G: 1 L
+//
+
+//TC-15
+//Tests Requirements R3, R9
+//grade number low command, non-existing grade
+//expected output: <empty line>
+
+G: 34 L
+//
+
+//TC-16
+//Tests Requirements R3, R10
+//average number command, existing grade
+//expected output: 3.0488888888888885
+
+A: 3
+//
+
+//TC-17
+//Tests Requirements R3, R10
+//average number command, non-existing grade
+//expected output: <empty line>
+
+A: 9
+//
+
+//TC-18
+//Tests Requirements R3, R11
+//info command
+//expected output:
+//0: 0
+//1: 2
+//2: 13
+//3: 9
+//4: 15
+//5: 0
+//6: 21
+//
+
+//TC-19
+//Tests Requirements R3, R12
+//quit command
+//expected output: program terminates
+
+Q
+//
+
+//TC-20
+//Tests Requirements R3, NR1, NR2
+//classroom find students & teachers
+//expected output: 
+//Students:
+//DURAND,CARLEE
+//
+//Teachers:
+//COOL,REUBEN
+
+C: 101
+//
+
+//TC-21
+//Tests Requirements R3, NR1, NR2
+//classroom find students & teachers, non-existing classroom
+//expected output:
+//Students:
+//
+//Teachers:
+//
+
+C: 123
+//
+
+//TC-22
+//Tests Requirements R3, NR3
+//find teachers for grade
+//expected output:
+//Students:
+//GARTH,JOHN
+//SAELEE,DANILO
+//
+//Teachers:
+//FALKER,ADOLPH
+
+G: 1
+//
+
+//TC-23
+//Tests Requirements R3, NR3
+//find teachers for grade, non-existent grade
+//expected output:
+//Students:
+//
+//Teachers:
+//
+
+G: 51
+//
+
+//TC-24
+//Tests Requirements R3, NR4
+//enrollment by classroom
+//expected output:
+//101: 1
+//102: 5
+//103: 2
+//104: 2
+//105: 6
+//106: 2
+//107: 7
+//108: 11
+//109: 5
+//110: 2
+//111: 9
+//112: 8
+
+E
+//
+
+//TC-25
+//Tests Requirements R3, NR5
+//GPA average by grade
+//expected output:
+//1: 2.995
+//
+
+G: G
+//
+
+//TC-26
+//Tests Requirements R3, NR5
+//GPA average by teacher
+//expected output:
+
+G: T
+//
+
+//TC-27
+//Tests Requirements R3, NR5
+//GPA average by bus
+//expected output:
+
+G: B
+//
