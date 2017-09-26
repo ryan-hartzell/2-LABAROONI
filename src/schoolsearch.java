@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class schoolsearch {
     public static void main(String[] argv) {
@@ -119,7 +120,8 @@ public class schoolsearch {
         System.out.println("Usage:");
         System.out.println("\tA[verage]: <number>");
         System.out.println("\tB[us]: <number>");
-        System.out.println("\tG[rage]: <number> [[H]|[L]]");
+        System.out.println("\tC[lassroom]: <number>");
+        System.out.println("\tG[rade]: <number> [[H]|[L]]");
         System.out.println("\tI[nfo]");
         System.out.println("\tS[tudent]: <lastname>");
         System.out.println("\tT[eacher]: <lastname>");
@@ -173,6 +175,29 @@ public class schoolsearch {
                         busStudents(students, bus);
                     }
                     break;
+                case "Classroom:":
+                case "C:":
+                    int targetClassroom;
+
+                     if (line.hasNext() && line.hasNextInt()) {
+                        targetClassroom = line.nextInt();
+                    }
+                    else {
+                        System.out.println("Incorrect command");
+                        System.out.println("Usage: C[lassroom]: <number>");
+                        break;
+                    }
+                    
+                    if (line.hasNext()) {
+                        System.out.println("Incorrect command");
+                        System.out.println("Usage: C[lassroom]: <number>");
+                    } else {
+                        System.out.println("Students:");
+                        classStudents(students, targetClassroom);
+                        System.out.println("Teachers:");
+                        classTeachers(teachers, targetClassroom);
+                    }
+                    break;
                 case "Grade:":
                 case "G:":
                     int targetGrade;
@@ -192,9 +217,13 @@ public class schoolsearch {
                     }
                     if (line.hasNext()) {
                         System.out.println("Incorrect command");
-                        System.out.println("Usage: G[rage]: <number> [[H[igh]]|[L[ow]]]");
+                        System.out.println("Usage: G[rade]: <number> [[H[igh]]|[L[ow]]]");
                     } else {
+                        System.out.println("Students:");
                         gradeStudents(students, targetGrade, extreme);
+                        System.out.println("Teachers:");
+                        gradeTeachers(students, teachers, targetGrade);
+                        
                     }
                     break;
                 case "Info":
@@ -258,7 +287,8 @@ public class schoolsearch {
                     System.out.println("Usage:");
                     System.out.println("\tA[verage]: <number>");
                     System.out.println("\tB[us]: <number>");
-                    System.out.println("\tG[rage]: <number> [[H]|[L]]");
+                    System.out.println("\tC[lassroom]: <number>");
+                    System.out.println("\tG[rade]: <number> [[H]|[L]]");
                     System.out.println("\tI[nfo]");
                     System.out.println("\tS[tudent]: <lastname>");
                     System.out.println("\tT[eacher]: <lastname>");
@@ -307,6 +337,30 @@ public class schoolsearch {
         }
     }
 
+    private static void classStudents(HashSet<Student> students, int classroom) {
+        Iterator<Student> iter = students.iterator();
+
+        while (iter.hasNext()) {
+            Student s = iter.next();
+            if (s.getClassroom() == classroom) {
+               System.out.print(s.getLastName() + ",");
+               System.out.println(s.getFirstName());
+            }
+         }
+    }   
+    
+    private static void classTeachers(HashSet<Teacher> teachers, int classroom) {
+        Iterator<Teacher> iter = teachers.iterator();
+
+        while (iter.hasNext()) {
+            Teacher t = iter.next();
+            if (t.getClassroom() == classroom) {
+               System.out.print(t.getLastName() + ",");
+               System.out.println(t.getFirstName());
+            }
+         }
+    }
+    
     private static void gradeStudents(HashSet<Student> students, int grade, String extreme) {
         Iterator<Student> iter = students.iterator();
         Student studentEx = null;
@@ -342,6 +396,29 @@ public class schoolsearch {
 //            System.out.println(studentEx.gettFirstName());
         }
     }
+    
+    private static void gradeTeachers(HashSet<Student> students, HashSet<Teacher> teachers, int grade) {
+        Iterator<Student> iterS = students.iterator();
+        Iterator<Teacher> iterT = teachers.iterator();
+        ArrayList<Integer> classList = new ArrayList<Integer>();
+
+        while (iterS.hasNext()) {
+            Student s = iterS.next();
+            if(s.getGrade() == grade)
+               classList.add(s.getClassroom());
+        }
+        
+        while(iterT.hasNext()){
+            Teacher t = iterT.next();
+            for(int i : classList){
+               if (t.getClassroom() == i) {
+                  System.out.print(t.getLastName() + ",");
+                  System.out.println(t.getFirstName());
+                  break;
+               }
+            }
+        }
+     }
 
     private static void getInfo(HashSet<Student> students) {
         int[] numInGrade = new int[7];
