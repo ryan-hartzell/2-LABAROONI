@@ -45,7 +45,7 @@ public class schoolsearch {
 
         while (in.hasNextLine()) {
             line = new Scanner(in.nextLine());
-            line.useDelimiter(",");
+            line.useDelimiter("\\p{javaWhitespace}*,\\p{javaWhitespace}*");
 
             if (!line.hasNext()) {
                 throw new Exception("Invalid format");
@@ -91,7 +91,7 @@ public class schoolsearch {
 
         while (in.hasNextLine()) {
             line = new Scanner(in.nextLine());
-            line.useDelimiter(",");
+            line.useDelimiter("\\p{javaWhitespace}*,\\p{javaWhitespace}*");
 
             if (!line.hasNext()) {
                 throw new Exception("Invalid format");
@@ -391,7 +391,7 @@ public class schoolsearch {
                 int classroom = t.getClassroom();
 
                 sIter = students.iterator();
-                
+
                 while (sIter.hasNext()) {
                     Student s = sIter.next();
 
