@@ -119,7 +119,7 @@ public class schoolsearch {
     private static void interactiveLoop(HashSet<Student> students, HashSet<Teacher> teachers) {
         Scanner s = new Scanner(System.in);
         System.out.println("Usage:");
-        System.out.println("\tA[verage]: <number>");
+        System.out.println("\tA[verage]: <number> | B[us] | G[rade] | T[eacher]");
         System.out.println("\tB[us]: <number>");
         System.out.println("\tC[lassroom]: <number>");
         System.out.println("\tE[nrollment]");
@@ -140,21 +140,30 @@ public class schoolsearch {
                 case "Average:":
                 case "A:":
                     int grade;
+                    String tag;
 
                     if (line.hasNext() && line.hasNextInt()) {
                         grade = line.nextInt();
-                    }
-                    else {
-                        System.out.println("Incorrect command");
-                        System.out.println("Usage: A[verage]: <number>");
-                        break;
+                        average(students, grade);
                     }
 
-                    if (line.hasNext()) {
+                    else if(line.hasNext()) {
+                        tag = line.next();
+                        if(tag.equals("B") || tag.equals("Bus"))
+                           averageBus(students); 
+                        else if(tag.equals("G") || tag.equals("Grade"))
+                           averageGrade(students);
+                        else if(tag.equals("T") || tag.equals("Teacher"))
+                           averageTeacher(students, teachers);
+                        else {
+                            System.out.println("Incorrect command");
+                            System.out.println("\tA[verage]: <number> | B[us] | G[rade] | T[eacher]");
+                        }
+                    }
+
+                    else {
                         System.out.println("Incorrect command");
-                        System.out.println("Usage: A[verage]: <number>");
-                    } else {
-                        average(students, grade);
+                        System.out.println("\tA[verage]: <number> | B[us] | G[rade] | T[eacher]");
                     }
                     break;
                 case "Bus:":
@@ -325,6 +334,112 @@ public class schoolsearch {
 
         // If there are no results, print 0. Otherwise print result
         System.out.println(numInGrade == 0 ? 0 : (sum / numInGrade));
+    }
+
+    private static void averageBus(HashSet<Student> students) {
+        ArrayList<Integer> buses = new ArrayList<Integer>();
+        Iterator<Student> iter = students.iterator();
+        while (iter.hasNext()) {
+            Student s = iter.next();
+            if(!buses.contains(s.getBus()))
+               buses.add(s.getBus());
+        }
+        Collections.sort(buses);
+        ArrayList<Integer> numOnBus = new ArrayList<Integer>();
+        ArrayList<Double> sGPA = new ArrayList<Double>();
+        for(int k = 0; k < buses.size(); k++){
+           sGPA.add(0.0);
+           numOnBus.add(0);
+        }
+        iter = students.iterator();
+        while(iter.hasNext()){
+           Student s = iter.next();
+           int g = s.getBus();
+           int i = buses.indexOf(g);
+           double sum = sGPA.get(i)+s.getGPA();
+           int count = numOnBus.get(i)+1;
+           sGPA.set(i,sum);
+           numOnBus.set(i,count);
+        }
+
+        for(int j = 0; j < buses.size(); j++){
+           double bGPA = sGPA.get(j) / numOnBus.get(j);
+           System.out.println(buses.get(j) + ": " + bGPA);
+        }
+    }
+
+    private static void averageGrade(HashSet<Student> students) {
+        ArrayList<Integer> buses = new ArrayList<Integer>();
+        Iterator<Student> iter = students.iterator();
+        while (iter.hasNext()) {
+            Student s = iter.next();
+            if(!buses.contains(s.getGrade()))
+               buses.add(s.getGrade());
+        }
+        Collections.sort(buses);
+        ArrayList<Integer> numOnBus = new ArrayList<Integer>();
+        ArrayList<Double> sGPA = new ArrayList<Double>();
+        for(int k = 0; k < buses.size(); k++){
+           sGPA.add(0.0);
+           numOnBus.add(0);
+        }
+        iter = students.iterator();
+        while(iter.hasNext()){
+           Student s = iter.next();
+           int g = s.getGrade();
+           int i = buses.indexOf(g);
+           double sum = sGPA.get(i)+s.getGPA();
+           int count = numOnBus.get(i)+1;
+           sGPA.set(i,sum);
+           numOnBus.set(i,count);
+        }
+
+        for(int j = 0; j < buses.size(); j++){
+           double bGPA = sGPA.get(j) / numOnBus.get(j);
+           System.out.println(buses.get(j) + ": " + bGPA);
+        }
+    }
+
+    private static void averageTeacher(HashSet<Student> students,HashSet<Teacher> teachers) {
+        ArrayList<Teacher> buses = new ArrayList<Teacher>();
+        Iterator<Student> iter = students.iterator();
+        while (iter.hasNext()) {
+            Student s = iter.next();
+            if(!buses.contains(getT(s,teachers)))
+               buses.add(getT(s,teachers));
+        }
+        ArrayList<Integer> numOnBus = new ArrayList<Integer>();
+        ArrayList<Double> sGPA = new ArrayList<Double>();
+        for(int k = 0; k < buses.size(); k++){
+           sGPA.add(0.0);
+           numOnBus.add(0);
+        }
+        iter = students.iterator();
+        while(iter.hasNext()){
+           Student s = iter.next();
+           Teacher g = getT(s,teachers);
+           int i = buses.indexOf(g);
+           double sum = sGPA.get(i)+s.getGPA();
+           int count = numOnBus.get(i)+1;
+           sGPA.set(i,sum);
+           numOnBus.set(i,count);
+        }
+
+        for(int j = 0; j < buses.size(); j++){
+           double bGPA = sGPA.get(j) / numOnBus.get(j);
+           System.out.println(buses.get(j).getLastName() + "," + buses.get(j).getFirstName() + ": " + bGPA);
+        }
+    }
+
+    private static Teacher getT(Student student, HashSet<Teacher> teachers)
+    {
+       int c = student.getClassroom();
+       Iterator iter = teachers.iterator();
+       while(iter.hasNext()){
+          Teacher t = (Teacher)iter.next();
+          if(c == t.getClassroom()) return t;
+       }
+       return null;
     }
 
     private static void busStudents(HashSet<Student> students, int bus) {
