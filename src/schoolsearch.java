@@ -299,6 +299,7 @@ public class schoolsearch {
                     System.out.println("\tA[verage]: <number>");
                     System.out.println("\tB[us]: <number>");
                     System.out.println("\tC[lassroom]: <number>");
+                    System.out.println("\tE[nrollment]");
                     System.out.println("\tG[rade]: <number> [[H]|[L]]");
                     System.out.println("\tI[nfo]");
                     System.out.println("\tS[tudent]: <lastname>");
